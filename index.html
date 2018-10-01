@@ -1,0 +1,659 @@
+<!DOCTYPE html >
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126568382-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126568382-1');
+</script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <title>Mapa zanieczyszczeń</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
+  <meta property="og:title" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+  <meta property="og:site_name" content="">
+  <meta property="og:description" content="">
+
+  <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+
+  <!-- Favicon -->
+  <link href="img/favicon.ico" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,700|Roboto:400,900" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+    <title>Using MySQL and PHP with Google Maps</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    
+    </style>
+  </head>
+
+  <body>
+      <section class="hero">
+          <div class="container text-center">
+            <div class="row">
+              
+            </div>
+      
+	 
+	  
+            <div class="col-md-12">
+			 
+              <h1>
+               <img class="img-responsive" src="img/logotyp.png" width="100" height="100">   jakiepowietrze.pl 
+                </h1>
+       
+              <p class="tagline" style="margin-left:auto; margin-right: auto; text-align: center;">
+                Daj znać, czym oddycha się obecnie w Twojej okolicy. <br/>
+				Czy warto iść pobiegać?<br/>
+				Czy można wypuścić dzieci na podwórko?<br/>
+				A może czas pomyśleć o przeprowadzce w czystszą okolicę?
+				<br/>
+				Sprawdz czystość powietrza dzięki naszej interaktywanej mapie. Podziel się też swoimi obserwacjami z innymi. 
+              </p>
+			  
+              <a class="btn btn-full" href="#about">Zapraszamy</a>
+            </div>
+          </div>
+      
+        </section>
+        <header id="header">
+            <div class="container">
+        
+        
+              <nav id="nav-menu-container">
+	
+
+
+                <ul class="nav-menu">
+				<li style="margin-left: 0px;"><a class="navbar-brand" href="#">
+    <img src="img/logotyp.png" width="30" height="30" alt="">
+    jakiepowietrze.pl
+  </a></li>
+                  <li><a href="#about">Cel projektu</a></li>
+                  <li><a href="#features">Mapa</a></li>
+                  <li><a href="#portfolio">Informacje</a></li>
+                  <li><a href="#team">Zespół</a></li>
+              
+                  <li><a href="#contact">Kontakt</a></li>
+			
+                </ul>
+			
+              </nav>
+			  
+			
+			
+
+              <!-- #nav-menu-container -->
+        
+              <nav class="nav social-nav pull-right d-none d-lg-inline">
+                <a href="https://twitter.com/?lang=pl"><i class="fa fa-twitter"></i></a> <a href="https://pl-pl.facebook.com/"><i class="fa fa-facebook"></i></a> <a href="https://pl.linkedin.com/"><i class="fa fa-linkedin"></i></a> <a href="#contact"><i class="fa fa-envelope"></i></a>
+              </nav>
+            </div>
+          </header>
+
+<section class="portfolio" id="about">
+      <div class="container" >
+        <h2>
+            <img class="img-responsive" src="img/logotyp.png" width="60" height="60"> Cel projektu
+          </h2>
+		  
+		  <div class="row">
+                  <div class="col-lg-4 col-md-6 col-sm-12" >
+ 
+        <p style="text-align:justify;">
+			Postanowiliśmy zająć się jednym z najistotniejszych problemów naszego kraju jakim jest zła jakość powietrza. Polska, pomimo podjęcia gigantycznego procesu modernizacyjnego po wstąpieniu do Unii Europejskiej, niestety wciąż przoduje w rankingach najbardziej zanieszczyszonych krajów, jeśli chodzi o jakość powietrza.</p>
+           <p style="text-align:justify;"> Nasz projekt umożliwia ludziom dzielenia się 
+            informacjami o jakości powietrza w ich okolicy w oparciu o ich własne obserwacje. 
+            Uażamy, że fachowe informacje pochodzące z czujników mówiące  
+            na przykład o ilości pyłów zawieszonych typu P10, czy P2.5  nie są 
+            do końca sugestwne.
+            Równie istotne są odczucia ludzi o jakości lokalnej atmosfery, 
+            w czasie rzeczywistym.</p>
+			<p style="text-align:justify;">Uważamy, że ponad 45 tysięcy ludzi umierających co roku przedwcześnie, ze wzgędu na wdychanie zatrutego powietrza, to jest niebywały skandal, z którym należy walczyć. </p>
+			</div>
+
+			<div class="col-lg-4 col-md-6 col-sm-12">
+	
+			
+			<p style="text-align:justify;">To jest problem, który powienien spędzać sen z powiek każdemu w tym kraju dopóki nie osiągniemy widocznego efektu polegającego na diametralnym zmniejszeniu emisji trujących gazów, szczególnie w okresie jesienno zimowym. </p>
+
+<p style="text-align:justify;">Oczywiście poprawa tego czym oddychamy obliczona jest na lata, a może nawet dekady. Do tego czasu jedak każdy z nas ma wływ na to, gdzie mieszka, a dzięki naszemu portalowi może wybrać lokalizcję swojego miejsca zamieszkana w oparciu o bardzo istotny parametr jakim właśnie jest jakość powietrza określana na bazie organoleptycznych obserwacji mieszkańców danej okolicy.</p>
+<p style="text-align:justify;">Podsumowując chcemy przy okazji uświadamiania ludziom ważnego problmu dać im szansę wzajemnej wymiany informacji i pomocy, żeby w naszym pięknym kraju z roku na rok żyło się przyjemniej. </p>
+</div>
+			
+			<div class="col-lg-4 col-md-6 col-sm-12" >
+			<img class="img-responsive img-thumbnail" src="img/mapka.jpg" width="100%;">
+			<figcaption class="figure-caption">Zanieczyszczenie powietrza w Polsce na tle innych państw Europy.</figcaption>
+			</div>
+      
+     </div>
+     
+    </section>
+
+
+         
+            <section class="features" id="features" style="height: 100%;">
+<div class="container text-center">
+        <h2>
+          <img class="img-responsive" src="img/logotyp.png" width="60" height="60"> Mapa
+          </h2>
+          <h3>Na poniższej mapie możesz dodawać swoje pinezki obrazujące jakość powietrza w Twojej okolicy. Widniejące punkty na mapie obrazują jakość powietrza.</h3>
+          <br/><br/>
+
+		  
+          <h4 style="text-align: left"> LEGENDA:  
+            <img src="bdz.png" >  -  bardzo zła
+             <img src="sl.png">  -  zła 
+              <img src="sr.png">  -  średnia
+               <img src="db.png">  -  dobra
+                <img src="bdb.png"> -  bardzo dobra 
+</div>
+          </h4>
+
+
+        </div>
+
+    
+                <div style="padding: 20px;" id="map" class="container"></div>
+               
+                
+              
+
+ 
+
+     <div id="form" style="display: none" >
+      <table>
+      <tr><td>Użytkownik:</td> <td><input type='text' id='name'/> </td> </tr>
+      
+      <tr><td>Jakość powietrza:</td> <td><select id='type' style='color:none'> +
+                 <option value='bdb' style='background-color:lightblue' SELECTED>bardzo dobra</option>
+                 <option value='db' style='background-color:lightgreen'>dobra</option>
+                 <option value='sr' style='background-color:yellow'>średnia</option>
+                 <option value='sl' style='background-color:orange'>słaba</option>
+                 <option value='bdz' style='background-color:red'>bardzo zła</option>
+                 </select> </td></tr>
+                 <tr><td></td><td><input type='button' value='Zapisz' onclick='saveData()'/></td></tr>
+      </table>
+    </div>
+  </section>
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <script>
+      var map;
+      var marker;
+      var infowindow;
+      var messagewindow;
+
+      var customLabel = {
+        bdb: {
+          label: '1'
+        },
+        db: {
+          label: '2'
+        },
+        sr: {
+          label: '3'
+        },
+        sl: {
+          label: '4'
+        },
+        bdz: {
+          label: '5'
+        }
+      };
+
+         function initMap() {
+        var california = new google.maps.LatLng(53.111, 18.010);
+       
+
+        var opcjeMapy = {
+          zoom: 13,
+          center: california,
+          disableDefaultUI: false,
+        };
+
+        map = new google.maps.Map(document.getElementById("map"), opcjeMapy);   
+        znajdzMnie();
+                }
+      function znajdzMnie()
+      {
+      
+          navigator.geolocation.getCurrentPosition(function(pozycja)
+          {
+            setTimeout(
+              function()
+              {
+                var punkt = new google.maps.LatLng(pozycja.coords.latitude,pozycja.coords.longitude);
+                map.setCenter(punkt);
+              
+              }, 
+              250);
+          }, 
+        );
+
+infowindow = new google.maps.InfoWindow({
+          content: document.getElementById('form')
+        });
+
+        messagewindow = new google.maps.InfoWindow({
+          content: document.getElementById('message')
+        });
+
+        google.maps.event.addListener(map, 'click', function(event) {
+          marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map
+          });
+
+
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map, marker);
+            document.getElementById("form").style.display="inline";
+          });
+        });
+
+
+
+
+
+        var infoWindow = new google.maps.InfoWindow;
+
+          // Change this depending on the name of your PHP or XML file
+          downloadUrl('http://jakiepowietrze.pl/pobrane.php', function(data) {
+            var xml = data.responseXML;
+            var markers = xml.documentElement.getElementsByTagName('marker');
+            Array.prototype.forEach.call(markers, function(markerElem) {
+              var id = markerElem.getAttribute('id');
+              var name = markerElem.getAttribute('name');
+              var address = markerElem.getAttribute('address');
+              var type = markerElem.getAttribute('type');
+              var point = new google.maps.LatLng(
+                  parseFloat(markerElem.getAttribute('lat')),
+                  parseFloat(markerElem.getAttribute('lng')));
+              
+              var infowincontent = document.createElement('div');
+              var strong = document.createElement('strong');
+              strong.textContent = name
+              infowincontent.appendChild(strong);
+              infowincontent.appendChild(document.createElement('br'));
+
+              var text = document.createElement('text');
+              text.textContent = address
+              infowincontent.appendChild(text);
+              var icon = customLabel[type] || {};
+                var image = {
+                  url: 'http://jakiepowietrze.pl/' + type + '.png',
+                  
+                  
+                   };
+              var marker = new google.maps.Marker({
+                map: map,
+                position: point,
+                icon:image,
+                
+              });
+
+              var circle = new google.maps.Circle({
+  map: map,
+  
+      // 10 miles in metres
+ 
+});
+circle.bindTo('center', marker, 'position');
+              marker.addListener('click', function() {
+                infoWindow.setContent(infowincontent);
+                infoWindow.open(map, marker);
+              });
+            });
+          });
+        }
+
+function saveData() {
+        var name = escape(document.getElementById('name').value);
+        
+        var type = document.getElementById('type').value;
+        var latlng = marker.getPosition();
+        var url = 'http://jakiepowietrze.pl/phpsqlinfo_addrow.php?name=' + name  +
+                  '&type=' + type + '&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+console.log(url);
+        downloadUrl(url, function(data, responseCode) {
+
+          if (responseCode == 200 && data.length <= 1) {
+            infowindow.close();
+            messagewindow.open(map, marker);
+          }
+        });
+        var x = document.getElementById("form");
+        if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+     location.reload();
+      }
+
+      function downloadUrl(url, callback) {
+        var request = window.ActiveXObject ?
+            new ActiveXObject('Microsoft.XMLHTTP') :
+            new XMLHttpRequest;
+
+        request.onreadystatechange = function() {
+          if (request.readyState == 4) {
+            request.onreadystatechange = doNothing;
+            callback(request, request.status);
+          }
+        };
+
+        request.open('GET', url, true);
+        request.send(null);
+      }
+
+      function doNothing() {}
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiQtbQxqp0yw-p0L2K9213BBTe2uAWVeQ&callback=initMap">
+    </script>
+
+<section class="cta">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9 col-sm-12 text-lg-left text-center">
+          <h2>
+              Sprawdż jakość powietrza według profesjonalnych pomiarów
+            </h2>
+
+          <p>
+           Po kliknieciu na przycisk z prawej strony zostaniesz przekierowany 
+           do strony z oficjalnymi i profesjonalnymi pomiarami zanieczyszczenia powietrza
+          </p>
+        </div>
+
+        <div class="col-lg-3 col-sm-12 text-lg-right text-center">
+          <a class="btn btn-ghost" target="_blank" href="https://aqicn.org/map/bydgoszcz/pl/" >Stacje pomiarowe</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <section class="about" id="portfolio">
+              <div class="container">
+                
+                  
+                <h2>
+                 <img class="img-responsive" src="img/logotyp.png" width="60" height="60">  Przydatne informacje - różnica między mgłą a smogiem
+                  </h2>
+                   <div class="row">
+                  <div class="col-lg-4 col-md-6 col-sm-12">
+                  
+          <p style="text-align:justify;">
+              Smogowi niemal zawsze towarzyszy mgła jednak mgła może występować bez smogu. To właśnie sprawia, że wielu naszych czytelników ma problem z 
+              rozróżnieniem tych zjawisk. Tymczasem wystarczy tylko poznać strukturę 
+              i zasadę powstawania obu zjawisk, aby ze wskazaniem mgły i smogu nie było 
+              żadnych problemów.</p>
+			  <p style="text-align:justify;">
+              Smog to nic innego, jak drobny pył oraz związki chemiczne, które 
+              wydzielają nieprzyjemny, duszący zapach. Powstaje przy bezwietrznej 
+              lub mało wietrznej aurze, gdy wyziewy z przydomowych kominów i silników 
+              samochodowych nie mogą się rozwiać, a przez to opadają i gromadzą się przy 
+              powierzchni ziemi, drażniąc nasz układ oddechowy. Smog jest tym gęstszy, im 
+              ższa jest temperatura, ponieważ im jest zimniej, tym intensywniej ogrzewamy 
+              swoje domy, często marnej jakości opałem.
+			  </p>
+			  <p style="text-align:justify;">
+              Bezwietrzna i mroźna aura sprzyja z kolei powstawaniu mgły. 
+              Pojawia się ona z dwóch powodów. Przy pogodnym niebie nocami i o 
+              porankach następuje promieniowanie ciepła z gruntu w przestrzeń kosmiczną,
+               a co za tym idzie, skraplanie się pary wodnej. A także w skutek napływu 
+               cieplejszej masy powietrza nad wychłodzony grunt lub odwrotnie, gdy
+                również dochodzi do skraplania się pary wodnej.</p>
+               
+                </div>
+			
+                  <div class="col-lg-4 col-md-6 col-sm-12">
+				  <p  style="text-align:justify;> Mgła w przeciwieństwie do smogu, to bezzapachowe miniaturowe kropelki wody, 
+                wielokrotnie mniejsze od kropel deszczu. Są tak małe, że niemal ostają się 
+                sile grawitacji i zamiast opadać, mogą się unosić. Smog często występuje w 
+                towarzystwie mgły i zamglenia dlatego, że pyły osiadają na tworzących je 
+                kroplach wody.</p>
+             <p style="text-align:justify;"> Zanieczyszczenie powietrza w Polsce nie jest aż tak duże, aby smog 
+              ograniczał widoczność do zera lub nawet kilkudziesięciu metrów.
+              W przeciwnym razie mielibyśmy katastrofę. Bez udziału mgły widoczność w 
+              smogu w większych miastach nie spada zwykle poniżej 1 kilometra, a więc 
+              możemy mówić co najwyżej o zamgleniu.</p>
+			  <p style="text-align:justify;">
+              Inaczej jest podczas mgły, która właśnie z powodu znacznego 
+              ograniczenia widoczności w tym samym czasie, gdy występuje smog,
+               jest mylona z silnym zanieczyszczeniem powietrza. Stąd też pojawiające
+                się błędnie w mediach zdjęcia miast, niby pogrążonych w gęstym smogu,
+                 a tymczasem w rzeczywistości spowitych mgłą z niewielką domieszką smogu.
+                 Zapamiętajcie</p>
+				 <p style="text-align:justify;">
+              I jeszcze podsumujmy. 
+              Smog to drobny pył i związki chemiczne, które wydzielają nieprzyjemny,
+               duszący zapach. Zazwyczaj ograniczają widoczność do kilku kilometrów. 
+               Mgła to bezwonne, miniaturowe kropelki wody, które mogą ograniczyć 
+               widoczność do 50 metrów.</p>
+          </p>
+      </div>
+	
+                  <div class="col-lg-4 col-md-6 col-sm-12">
+	  <img class="img-responsive  img-thumbnail" src="img/mgla.jpg" width="100%;" >
+	  <figcaption class="figure-caption">Typowy widok mgły</figcaption>
+	  <br/><br/>
+	  <img class="img-responsive  img-thumbnail" src="img/smog2.jpg" width="100%;">
+	  <figcaption class="figure-caption">Tak powstaje smog w Polsce</figcaption>
+	  </div>
+	  
+	  
+	  
+	  </div>
+              </div>
+			  
+			  
+            </section>
+
+
+
+    <section class="team" id="team">
+        <div class="container">
+          <h2 class="text-center">
+             <img class="img-responsive" src="img/logotyp.png" width="60" height="60"> Nasz zespół
+            </h2>
+    
+          <div class="row">
+           
+    
+          <div class="col-sm-4 col-xs-6">
+            <div class="card card-block">
+              <a href="#"><img alt="" class="team-img" src="img/team-7.jpg">
+                  <div class="card-title-wrap">
+                    <span class="card-title">Jarek</span> <span class="card-text">Back-end, Front-end</span>
+                  </div>
+    
+                  <div class="team-over">
+                    <h4 class="hidden-md-down">
+                      Skontaktuj się ze mną
+                    </h4>
+    
+                    <nav class="social-nav">
+                      <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
+              </nav>
+    
+              <p>
+               
+              </p>
+            </div>
+            </a>
+          </div>
+        </div>
+    
+        <div class="col-sm-4 col-xs-6">
+          <div class="card card-block">
+            <a href="#"><img alt="" class="team-img" src="img/team-6.jpg">
+                  <div class="card-title-wrap">
+                    <span class="card-title">Tomek</span> <span class="card-text">Front-end</span>
+                  </div>
+    
+                  <div class="team-over">
+                    <h4 class="hidden-md-down">
+                        Skontaktuj się ze mną
+                    </h4>
+    
+                    <nav class="social-nav">
+                      <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
+            </nav>
+    
+            <p>
+              
+            </p>
+          </div>
+          </a>
+        </div>
+        </div>
+    
+        <div class="col-sm-4 col-xs-6">
+          <div class="card card-block">
+            <a href="#"><img alt="" class="team-img" src="img/team-4.jpg">
+                  <div class="card-title-wrap">
+                    <span class="card-title">Michał</span> <span class="card-text">Front-end, Back-end </span>
+                  </div>
+    
+                  <div class="team-over">
+                    <h4 class="hidden-md-down">
+                        Skontaktuj się ze mną
+                    </h4>
+    
+                    <nav class="social-nav">
+                      <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
+            </nav>
+    
+            <p>
+              
+            </p>
+          </div>
+          </a>
+        </div>
+        </div>
+        </div>
+        </div>
+      </section>
+
+      <section id="contact">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <h2 class="section-title"><img class="img-responsive" src="img/logotyp.png" width="60" height="60">Skontaktuj się z nami</h2>
+              </div>
+            </div>
+      
+            <div class="row justify-content-center">
+              <div class="col-lg-3 col-md-4">
+                <div class="info">
+                  <div>
+                    <i class="fa fa-map-marker"></i>
+                    <p>Ośrodek Szkoleniowo Wdrożeniowy<br>85-164 Bydgoszcz<br> ul. Karpacka 54</p>
+                  </div>
+      
+                  <div>
+                    <i class="fa fa-envelope"></i>
+                    <p>mich160@jakiepowietrze.pl</p>
+                  </div>
+      
+                  <div>
+                    <i class="fa fa-phone"></i>
+                    <p>+48  52 373 36 89</p>
+                  </div>
+      
+                </div>
+              </div>
+      
+              <div class="col-lg-5 col-md-8">
+                <div class="form">
+                  <div id="sendmessage">Twoja wiadomość została wysłana ! Dziękujemy !</div>
+                  <div id="errormessage"></div>
+                  <form action="" method="post" role="form" class="contactForm"  >
+                    <div class="form-group">
+                      <input type="text" name="name" class="form-control" id="name" placeholder="Twoje imię" data-rule="minlen:4" data-msg="Wprowadź przynajmniej 4 znaki" />
+                      <div class="validation"></div>
+                    </div>
+                    <div class="form-group">
+                      <input type="email" class="form-control" name="email" id="email" placeholder="Twój Email" data-rule="email" data-msg="Wprowadź prawidłowy mail" />
+                      <div class="validation"></div>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="telephone" id="subject" placeholder="Tytuł wiadomości" data-rule="minlen:4" data-msg="Wprowadź przynajmniej 8 znaków w tytule" />
+                      <div class="validation"></div>
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" name="comments" rows="5" data-rule="required" data-msg="Napisz coś do nas" placeholder="Wiadomość"></textarea>
+                      <div class="validation"></div>
+                    </div>
+                    <!--<div class="text-center"> -->
+					<input class="btn btn-primary" type="submit" value="Wyślij wiadomość"><!--</div> -->
+                  </form>
+                </div>
+              </div>
+      
+            </div>
+          </div>
+        </section>
+
+          <a class="scrolltop" href="#"><span class="fa fa-angle-up"></span></a>
+
+          <script src="lib/jquery/jquery.min.js"></script>
+          <script src="lib/jquery/jquery-migrate.min.js"></script>
+          <script src="lib/superfish/hoverIntent.js"></script>
+          <script src="lib/superfish/superfish.min.js"></script>
+          <script src="lib/tether/js/tether.min.js"></script>
+          <script src="lib/stellar/stellar.min.js"></script>
+          <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+          <script src="lib/counterup/counterup.min.js"></script>
+          <script src="lib/waypoints/waypoints.min.js"></script>
+          <script src="lib/easing/easing.js"></script>
+          <script src="lib/stickyjs/sticky.js"></script>
+          <script src="lib/parallax/parallax.js"></script>
+          <script src="lib/lockfixed/lockfixed.min.js"></script>
+        
+          <!-- Template Specisifc Custom Javascript File -->
+          <script src="js/custom.js"></script>
+        
+          <script src="contactform/contactform.js"></script>
+
+  </body>
+</html>

@@ -1,28 +1,9 @@
-<!DOCTYPE html >
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <title>Using MySQL and PHP with Google Maps</title>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    
-    </style>
-  </head>
+<script>
+      var map;
+      var marker;
+      var infowindow;
+      var messagewindow;
 
-  <body>
-    <div id="map"></div>
-
-    <script>
       var customLabel = {
         bdb: {
           label: '1'
@@ -40,34 +21,61 @@
           label: '5'
         }
       };
-      function initMap() {
+
+         function initMap() {
         var california = new google.maps.LatLng(53.422227347149054, 14.525041580200194);
        
 
         var opcjeMapy = {
-					zoom: 14,
-					center: california,
-					disableDefaultUI: false,
-				};
+          zoom: 14,
+          center: california,
+          disableDefaultUI: false,
+        };
 
-        map = new google.maps.Map(document.getElementById("map"), opcjeMapy); 	
-				znajdzMnie();
+        map = new google.maps.Map(document.getElementById("map"), opcjeMapy);   
+        znajdzMnie();
                 }
-			function znajdzMnie()
-			{
-			
-					navigator.geolocation.getCurrentPosition(function(pozycja)
-					{
-						setTimeout(
-							function()
-							{
-								var punkt = new google.maps.LatLng(pozycja.coords.latitude,pozycja.coords.longitude);
-								map.setCenter(punkt);
-							
-							}, 
-							250);
-					}, 
-				);
+      function znajdzMnie()
+      {
+      
+          navigator.geolocation.getCurrentPosition(function(pozycja)
+          {
+            setTimeout(
+              function()
+              {
+                var punkt = new google.maps.LatLng(pozycja.coords.latitude,pozycja.coords.longitude);
+                map.setCenter(punkt);
+              
+              }, 
+              250);
+          }, 
+        );
+
+infowindow = new google.maps.InfoWindow({
+          content: document.getElementById('form')
+        });
+
+        messagewindow = new google.maps.InfoWindow({
+          content: document.getElementById('message')
+        });
+
+        google.maps.event.addListener(map, 'click', function(event) {
+          marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map
+          });
+
+
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map, marker);
+
+          });
+        });
+
+
+
+
+
         var infoWindow = new google.maps.InfoWindow;
 
           // Change this depending on the name of your PHP or XML file
@@ -120,7 +128,29 @@ circle.bindTo('center', marker, 'position');
           });
         }
 
+function saveData() {
+        var name = escape(document.getElementById('name').value);
+        
+        var type = document.getElementById('type').value;
+        var latlng = marker.getPosition();
+        var url = 'http://localhost/mapa/phpsqlinfo_addrow.php?name=' + name  +
+                  '&type=' + type + '&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+console.log(url);
+        downloadUrl(url, function(data, responseCode) {
 
+          if (responseCode == 200 && data.length <= 1) {
+            infowindow.close();
+            messagewindow.open(map, marker);
+          }
+        });
+        var x = document.getElementById("form");
+        if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+     location.reload();
+      }
 
       function downloadUrl(url, callback) {
         var request = window.ActiveXObject ?
@@ -143,5 +173,3 @@ circle.bindTo('center', marker, 'position');
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiQtbQxqp0yw-p0L2K9213BBTe2uAWVeQ&callback=initMap">
     </script>
-  </body>
-</html>
